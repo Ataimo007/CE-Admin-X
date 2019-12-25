@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ce_admin/app.dart';
@@ -21,11 +22,15 @@ class _MemberPageState extends State<MemberPage> {
       body: Padding(
         padding: const EdgeInsets.only(top: 5, bottom: 7),
         child: Center(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return getMemberWidget(index);
+          child: StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection("/church/3Jb7697uN5arfXILe5S8/members")
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (!snapshot.hasData) return LinearProgressIndicator();
+
+              return getMembersList(snapshot.data.documents);
             },
-            itemCount: 4,
           ),
         ),
       ),
@@ -34,6 +39,16 @@ class _MemberPageState extends State<MemberPage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget getMembersList(List<DocumentSnapshot> snapshot) {
+//    final record = Record.fromSnapshot(snapshot);
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return getMemberWidget(index);
+      },
+      itemCount: 4,
     );
   }
 

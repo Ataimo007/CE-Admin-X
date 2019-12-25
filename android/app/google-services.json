@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "730892410021",
+    "firebase_url": "https://christ-embassy-admin.firebaseio.com",
+    "project_id": "christ-embassy-admin",
+    "storage_bucket": "christ-embassy-admin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730892410021:android:34cdf1f940486da7d9014c",
+        "android_client_info": {
+          "package_name": "com.godcodes.ce_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730892410021-31k2j75d994551c9hdlekhq48b2c0oji.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.godcodes.ce_admin",
+            "certificate_hash": "700ef35e4707ddbb89d5f41e211ab35ffdc0ec5f"
+          }
+        },
+        {
+          "client_id": "730892410021-f65aua1eue9b1ujn3rr38t3jqc3p64l6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQVSvyVp9scUu15c-J_Um2BJemDX29xCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730892410021-f65aua1eue9b1ujn3rr38t3jqc3p64l6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
