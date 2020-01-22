@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "730892410021-94ftjt7blg99tqkgk0gllcnlp76n0chg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.godcodes.ce_admin",
+            "certificate_hash": "01957cdc7950a4bc992627cb28b9f410fe31d599"
+          }
+        },
+        {
           "client_id": "730892410021-31k2j75d994551c9hdlekhq48b2c0oji.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
