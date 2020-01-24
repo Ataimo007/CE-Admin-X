@@ -26,9 +26,10 @@ class _MemberPageState extends State<MemberPage> {
         .document("/church/3Jb7697uN5arfXILe5S8")
         .snapshots(includeMetadataChanges: true)
         .listen((data) {
-      if (false)
+      if (church == null)
         setState(() {
-          church = data.data;
+          print("church is ${data.data}");
+          church = Church.fromDocument(data.data);
         });
     });
   }
@@ -75,17 +76,18 @@ class _MemberPageState extends State<MemberPage> {
           .getDocuments()
           .then((value) {
             value.documents.asMap().forEach((pos, value) {
-              members[index + pos].complete(value);
+              print("member is ${value.data}");
+              members[index + pos].complete(Member.fromDocument(value.data));
             });
           });
       members.addAll(List.generate(increase, (index) => Completer<Member>()));
     }
 
-    return FutureBuilder<Completer<Member>>(
-      future: members.elementAt(index),
+    return FutureBuilder<Member>(
+      future: members.elementAt(index).future,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData)
-          return getMemberWidget(snapshot.data.documents);
+          return getMemberWidget(snapshot.data);
         else
           return getDummy();
       },
@@ -123,11 +125,21 @@ class _MemberPageState extends State<MemberPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "${member.firstName}${" " + member.lastName}${" " + member.otherNames}",
+                    "${member.firstName}${" ${member.surname}"}${" ${member.otherNames}"}",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                  getInfo(member.phone, Icons.phone, Colors.green),
-                  getInfo(member.email, Icons.email, Colors.red),
+                  member.phone != null
+                      ? getInfo(member.phone, Icons.phone, Colors.green)
+                      : Text(
+                          "No Phone Number",
+                          style: TextStyle(fontSize: 12),
+                        ),
+                  member.email != null
+                      ? getInfo(member.email, Icons.email, Colors.red)
+                      : Text(
+                          "No Email Address",
+                          style: TextStyle(fontSize: 12),
+                        ),
                 ],
               ),
             )
@@ -181,17 +193,44 @@ class _MemberPageState extends State<MemberPage> {
 
 class Member {
   String firstName;
-  String lastName;
+  String surname;
   String otherNames;
   String dob;
   String phone;
   String email;
   String address;
+
+  Member.fromDocument(Map<String, dynamic> doc) {
+    firstName = doc['first_name'];
+    surname = doc['surname'];
+    otherNames = doc['other_names'];
+    dob = doc['doc'];
+    phone = doc['phone'];
+    email = doc['email'];
+    address = doc['address'];
+  }
+
+  Map<String, dynamic> toMap() {
+    var doc = <String, dynamic>{};
+    return doc;
+  }
 }
 
 class Church {
   int membershipStrength;
-  int name;
+  String name;
   int update_at;
   int created_at;
+
+  Church.fromDocument(Map<String, dynamic> doc) {
+    membershipStrength = doc['membership_strength'];
+    name = doc['name'];
+    update_at = doc['update_at'];
+    created_at = doc['created_at'];
+  }
+
+  Map<String, dynamic> toMap() {
+    var doc = <String, dynamic>{};
+    return doc;
+  }
 }
